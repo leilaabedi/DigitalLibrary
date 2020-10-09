@@ -10,18 +10,19 @@
     >
 
     <LinearLayout
+        android:id="@+id/card_adapter"
         android:layout_width="match_parent"
         android:layout_height="80dip"
-        android:orientation="horizontal"
         android:elevation="5dip"
-        android:gravity="center_vertical|right">
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/listTtile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="عنوان داستان"
-            android:id="@+id/listTtile"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#000000" />
 
         <ImageView
@@ -29,8 +30,6 @@
             android:layout_width="48dip"
             android:layout_height="48dip"
             android:src="@mipmap/ic_launcher" />
-
-
 
 
     </LinearLayout>

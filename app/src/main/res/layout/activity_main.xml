@@ -46,4 +46,22 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         ></androidx.viewpager.widget.ViewPager>
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="20dip"
+        android:id="@+id/floating"
+        android:src="@android:drawable/ic_dialog_email"/>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/snackbarPosition"
+        android:layoutDirection="rtl">
+
+></androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

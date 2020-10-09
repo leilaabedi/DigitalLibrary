@@ -16,7 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.maktab.digitallibrary.R;
 import com.maktab.digitallibrary.database.DatabaseAccess;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView hambur;
     SQLiteDatabase database;
     String destPath;
+    FloatingActionButton floatingActionButton;
     public static ArrayList<Structure> flower = new ArrayList<Structure>();
     public static ArrayList<Structure> tree = new ArrayList<Structure>();
     public static ArrayList<Structure> favorite = new ArrayList<Structure>();
@@ -48,9 +51,23 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
         setTabOption();
 
+
+        floatingActionButton=findViewById(R.id.floating);
         drawerLayout = findViewById(R.id.navigation_drawer);
         navigationView = findViewById(R.id.navigation_view);
-        hambur = findViewById(R.id.ham);
+        hambur=findViewById(R.id.ham);
+
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Snackbar.make(floatingActionButton,"آموزش های اندروید ",Snackbar.LENGTH_SHORT).show();
+
+            }
+        });
+
+
         hambur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
