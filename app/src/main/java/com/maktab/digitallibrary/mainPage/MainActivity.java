@@ -19,15 +19,15 @@ import android.widget.ImageView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.maktab.digitallibrary.R;
-import com.maktab.digitallibrary.mainPage.AdapterFragment;
+import com.maktab.digitallibrary.database.DatabaseAccess;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public static Context context;
@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     ImageView hambur;
     SQLiteDatabase database;
     String destPath;
+    public static ArrayList<Structure> flower = new ArrayList<Structure>();
+    public static ArrayList<Structure> tree = new ArrayList<Structure>();
+    public static ArrayList<Structure> favorite = new ArrayList<Structure>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,64 +91,57 @@ public class MainActivity extends AppCompatActivity {
           Log.i("my","create2");
         }
 */
-  //    selectflower();
-
-        copyAppDbToDownloadFolder();
+        selectFlower();
+        selectTree();
+        selectFav();
 
 
     }
 
 
-    public void onBackPressed(){
+    public void onBackPressed() {
 
-        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)){
+        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
             drawerLayout.closeDrawer(Gravity.RIGHT);
-        } else{
+        } else {
             super.onBackPressed();
         }
     }
 
-    public void copyAppDbToDownloadFolder()  {
-        try {
-            File backupDB = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "md_book.db"); // for example "my_data_backup.db"
-            File currentDB = getApplicationContext().getDatabasePath("md_book.db"); //databaseName=your current application database name, for example "my_data.db"
-            if (currentDB.exists()) {
-                FileInputStream fis = new FileInputStream(currentDB);
-                FileOutputStream fos = new FileOutputStream(backupDB);
-                fos.getChannel().transferFrom(fis.getChannel(), 0, fis.getChannel().size());
-                // or fis.getChannel().transferTo(0, fis.getChannel().size(), fos.getChannel());
-                fis.close();
-                fos.close();
-                Log.i("Database successfully", " copied to download folder");
 
-            } else Log.i("Copying Database", " fail, database not found");
-        } catch (IOException e) {
-            Log.d("Copying Database", "fail, reason:", e);
-        }
+    /* private void CopyDB(InputStream inputStream, OutputStream  outputStream) throws IOException{
+         byte[] buffer=new byte[1024];
+         int length;
+         while ((length=inputStream.read(buffer))>0){
+             outputStream.write(buffer,0,length);
+         }
+         inputStream.close();
+         outputStream.close();
+     }
+
+     */
+    private void selectFlower() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+        flower = databaseAccess.getFlower();
+        databaseAccess.close();
+    }
+
+    private void selectTree() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+        tree = databaseAccess.getTree();
+        databaseAccess.close();
+    }
+
+    private void selectFav() {
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+        favorite = databaseAccess.getFav();
+        databaseAccess.close();
     }
 
 
-
-    private void CopyDB(InputStream inputStream, OutputStream  outputStream) throws IOException{
-        byte[] buffer=new byte[1024];
-        int length;
-        while ((length=inputStream.read(buffer))>0){
-            outputStream.write(buffer,0,length);
-        }
-        inputStream.close();
-        outputStream.close();
-    }
-
-    private void selectflower(){
-        database=SQLiteDatabase.openOrCreateDatabase(destPath+"/md_book.db",null);
-        Cursor cursor=database.rawQuery("SELECT * FROM main WHERE subject='flower'",null);
-        while (cursor.moveToNext()){
-            String title=cursor.getString(cursor.getColumnIndex("title"));
-
-        }
-
-
-    }
 
     private void setTabOption() {
 

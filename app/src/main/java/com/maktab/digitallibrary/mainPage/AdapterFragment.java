@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class AdapterFragment extends FragmentPagerAdapter {
     final int PAGE_COUNT=3;
-    private String tabTitles[]=new String[] {"علاقه مندی","تفریحی" ,"علمی"};
+    private String tabTitles[]=new String[] {"علاقه مندی","درخت" ,"گل ها"};
 
     public AdapterFragment(@NonNull FragmentManager fm) {
         super(fm);
