@@ -137,12 +137,14 @@
                         android:weightSum="4">
 
                         <ImageView
+                            android:id="@+id/img_copy"
                             android:layout_width="0dip"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             app:srcCompat="@mipmap/copy1" />
 
                         <ImageView
+                            android:id="@+id/img_mail"
                             android:layout_width="0dip"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -150,12 +152,14 @@
 
 
                         <ImageView
+                            android:id="@+id/img_share"
                             android:layout_width="0dip"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             app:srcCompat="@mipmap/share1" />
 
                         <ImageView
+                            android:id="@+id/img_sms"
                             android:layout_width="0dip"
                             android:layout_height="match_parent"
                             android:layout_weight="1"

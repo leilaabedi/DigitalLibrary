@@ -17,6 +17,7 @@ public class DatabaseAccess {
     public static ArrayList<Structure> flowerList = new ArrayList<Structure>();
     public static ArrayList<Structure> treeList = new ArrayList<Structure>();
     public static ArrayList<Structure> favoriteList = new ArrayList<Structure>();
+    public static ArrayList<Structure> allitemList = new ArrayList<Structure>();
 
     private DatabaseAccess(Context context) {
         this.openHelper = new DatabaseOpenHelper(context);
@@ -102,6 +103,50 @@ public class DatabaseAccess {
             favoriteList.add(struct);
         }
         return favoriteList;
+    }
+
+
+    public ArrayList<Structure> getAllitemList() {
+        c = db.rawQuery("select * from main ", null);
+
+        while (c.moveToNext()) {
+            String title = c.getString(c.getColumnIndex("title"));
+            String content = c.getString(c.getColumnIndex("content"));
+            String more = c.getString(c.getColumnIndex("more"));
+            String imgAddress = c.getString(c.getColumnIndex("img_adrs"));
+            int id = c.getInt(c.getColumnIndex("id"));
+
+            Structure struct = new Structure(title, content, more, imgAddress, id);
+            struct.setTitle(title);
+            struct.setContent(content);
+            struct.setMore(more);
+            struct.setImgAddress(imgAddress);
+            struct.setId(id);
+            allitemList.add(struct);
+        }
+        return allitemList;
+    }
+
+
+    public ArrayList<Structure> getSearch(CharSequence charac) {
+        c = db.rawQuery("select * from main where title Like '%"+charac+"%' ", null);
+allitemList.clear();
+        while (c.moveToNext()) {
+            String title = c.getString(c.getColumnIndex("title"));
+            String content = c.getString(c.getColumnIndex("content"));
+            String more = c.getString(c.getColumnIndex("more"));
+            String imgAddress = c.getString(c.getColumnIndex("img_adrs"));
+            int id = c.getInt(c.getColumnIndex("id"));
+
+            Structure struct = new Structure(title, content, more, imgAddress, id);
+            struct.setTitle(title);
+            struct.setContent(content);
+            struct.setMore(more);
+            struct.setImgAddress(imgAddress);
+            struct.setId(id);
+            allitemList.add(struct);
+        }
+        return allitemList;
     }
 
 

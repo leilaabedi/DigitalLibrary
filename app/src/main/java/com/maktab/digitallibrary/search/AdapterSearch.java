@@ -1,4 +1,4 @@
-package com.maktab.digitallibrary.mainPage;
+package com.maktab.digitallibrary.search;
 
 
 import android.content.Context;
@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.maktab.digitallibrary.R;
 import com.maktab.digitallibrary.innerPage.ActivityInnerPage;
+import com.maktab.digitallibrary.mainPage.MainActivity;
+import com.maktab.digitallibrary.mainPage.ViewHolder;
 
-public class AdapterFav extends RecyclerView.Adapter<ViewHolder> {
+public class AdapterSearch extends RecyclerView.Adapter<ViewHolder> {
     @NonNull
     Context context;
     LayoutInflater inflater;
@@ -24,7 +26,7 @@ public class AdapterFav extends RecyclerView.Adapter<ViewHolder> {
     ImageView avatar;
     LinearLayout cardAdapter;
 
-    public AdapterFav(Context context) {
+    public AdapterSearch(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
@@ -42,29 +44,17 @@ public class AdapterFav extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.title.setText(MainActivity.favorite.get(position).getTitle());
-        String imgAddress = MainActivity.favorite.get(position).getImgAddress();
-        int id = MainActivity.context.getResources().getIdentifier(imgAddress, "drawable", MainActivity.context.getPackageName());
-        holder.avatar.setImageResource(id);
-        holder.cardAdapter.setOnClickListener(clickListener);
-        holder.cardAdapter.setId(position);
+        holder.title.setText(MainActivity.allItems.get(position).getTitle());
+        String imgAddress = MainActivity.allItems.get(position).getImgAddress();
+//        int id = MainActivity.context.getResources().getIdentifier(imgAddress, "drawable", MainActivity.context.getPackageName());
+       // holder.avatar.setImageResource(id);
+
     }
 
-    View.OnClickListener clickListener=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int position=v.getId();
 
-            Intent intent=new Intent(MainActivity.context, ActivityInnerPage.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("name","favorite");
-            intent.putExtra("id",position+"");
-            MainActivity.context.startActivity(intent);
-        }
-    };
 
     @Override
     public int getItemCount () {
-        return MainActivity.favorite.size();
+        return MainActivity.allItems.size();
     }
 }

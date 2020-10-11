@@ -6,6 +6,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.maktab.digitallibrary.R;
 import com.maktab.digitallibrary.database.DatabaseAccess;
+import com.maktab.digitallibrary.search.ActivitySearch;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Structure> flower = new ArrayList<Structure>();
     public static ArrayList<Structure> tree = new ArrayList<Structure>();
     public static ArrayList<Structure> favorite = new ArrayList<Structure>();
+    public static ArrayList<Structure> allItems = new ArrayList<Structure>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +55,17 @@ public class MainActivity extends AppCompatActivity {
         setTabOption();
 
 
-        floatingActionButton=findViewById(R.id.floating);
+        floatingActionButton = findViewById(R.id.floating);
         drawerLayout = findViewById(R.id.navigation_drawer);
         navigationView = findViewById(R.id.navigation_view);
-        hambur=findViewById(R.id.ham);
+        hambur = findViewById(R.id.ham);
 
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Snackbar.make(floatingActionButton,"آموزش های اندروید ",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(floatingActionButton, "آموزش های اندروید ", Snackbar.LENGTH_SHORT).show();
 
             }
         });
@@ -83,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
                 if (id == R.id.setting) {
                     Log.i("mylog", "hello!");
                 }
+                if (id == R.id.search) {
+                    Intent intent = new Intent(MainActivity.this, ActivitySearch.class);
+                    MainActivity.this.startActivity(intent);
+                }
+
                 return true;
             }
         });
@@ -111,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         selectFlower();
         selectTree();
         selectFav();
+        selectAllItems();
 
 
     }
@@ -123,6 +132,26 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    protected void onResume() {
+        super.onResume();
+
+        if (!favorite.isEmpty()) {
+            favorite.clear();
+            selectFav();
+        } else if (!flower.isEmpty()){
+            flower.clear();
+            selectFlower();
+        } else if (!tree.isEmpty()){
+            tree.clear();
+            selectTree();
+        } else if (!allItems.isEmpty()){
+            allItems.clear();
+
+        }
+
+
     }
 
 
@@ -157,6 +186,15 @@ public class MainActivity extends AppCompatActivity {
         favorite = databaseAccess.getFav();
         databaseAccess.close();
     }
+
+    private void selectAllItems(){
+
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+        allItems = databaseAccess.getAllitemList();
+        databaseAccess.close();
+    }
+
 
 
 

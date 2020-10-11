@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.maktab.digitallibrary.R;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
-    ImageView avatar;
-    TextView title;
-    LinearLayout cardAdapter;
+   public ImageView avatar;
+   public TextView title;
+   public LinearLayout cardAdapter;
 
     public ViewHolder(@NonNull View itemView) {
         super(itemView);

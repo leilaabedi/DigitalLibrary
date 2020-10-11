@@ -46,13 +46,19 @@ public class AdapterTree extends RecyclerView.Adapter<ViewHolder> {
         int id = MainActivity.context.getResources().getIdentifier(imgAddress, "drawable", MainActivity.context.getPackageName());
         holder.avatar.setImageResource(id);
         holder.cardAdapter.setOnClickListener(clickListener);
+        holder.cardAdapter.setId(position);
     }
 
     View.OnClickListener clickListener=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
+            int position=v.getId();
+
             Intent intent=new Intent(MainActivity.context, ActivityInnerPage.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("name","tree");
+            intent.putExtra("id",position+"");
             MainActivity.context.startActivity(intent);
         }
     };
